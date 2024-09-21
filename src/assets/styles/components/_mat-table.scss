@@ -1,0 +1,95 @@
+@use '../abstracts' as *;
+
+.mat-table-container-table {
+	border: 1px solid $background-primary-darker-color !important;
+}
+
+.mdc-data-table {
+	height: fit-content;
+	border-collapse: collapse;
+	background-color: $background-primary-darker-color;
+	border-radius: 0.4rem;
+	overflow: hidden;
+
+	&__header-row {
+		background-color: $background-primary-dark-color !important;
+	}
+
+	&__row:hover {
+		background-color: $hover-light-color !important;
+		cursor: pointer;
+		transition: all 0.3s ease;
+	}
+
+	&__header-cell,
+	&__cell {
+		padding: 0.8rem !important;
+		font-size: 1.4rem !important;
+		text-align: left !important;
+	}
+}
+
+.mat-mdc-paginator-page-size-label {
+	display: none !important;
+}
+
+.mat-mdc-paginator-container {
+	border-left: 1px solid $background-primary-darker-color !important;
+	border-right: 1px solid $background-primary-darker-color !important;
+	border-bottom: 1px solid $background-primary-darker-color !important;
+}
+
+@include respond(tab-port) {
+	.mat-mdc-table {
+		border: 0;
+		vertical-align: middle;
+	}
+
+	.hidden-headers {
+		display: none !important;
+	}
+
+	.mdc-data-table {
+		&__row {
+			border-bottom: 1.5px solid $background-primary-darker-color-2 !important;
+			display: block;
+			height: 320px !important;
+
+			&:last-child > * {
+				border-bottom: 1px solid $background-primary-darker-color !important;
+				&:last-child {
+					border-bottom: none !important;
+				}
+			}
+		}
+
+		&__cell {
+			border-bottom: 0.1rem solid $background-primary-darker-color !important;
+			margin-bottom: 4%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 1rem !important;
+
+			&::before {
+				content: attr(id);
+				float: left;
+				font-weight: bold;
+
+				font-size: 1.6rem;
+			}
+
+			&:last-child {
+				border-bottom: 0 !important;
+			}
+			&:first-child {
+				margin-top: 4%;
+			}
+		}
+	}
+
+	.mat-mdc-paginator-range-actions,
+	.mat-mdc-paginator-page-size {
+		margin-top: 3rem;
+	}
+}

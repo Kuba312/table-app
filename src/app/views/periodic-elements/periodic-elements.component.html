@@ -1,3 +1,10 @@
 <section class="periodic-elements">
-	
+	@let periodicElementsValues = periodicElements();
+
+	@if(periodicElementsValues) {
+		<app-mat-table
+			[displayedColumns]="COLUMNS"
+			[dataSource]="periodicElementsValues"
+		/>
+	}
 </section>

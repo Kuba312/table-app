@@ -1,0 +1,38 @@
+<div class="mat-table-container">
+		<div class="mat-table-container__wrapper">
+			<table
+				class="mat-table-container-table"
+				mat-table
+				[dataSource]="adjustedDataSource()"
+			>
+				@for (column of displayedColumns(); track $index) {
+					<ng-container [matColumnDef]="column.columnName">
+						<mat-header-cell
+							*matHeaderCellDef
+						>
+							{{ column.columnName }}
+						</mat-header-cell>
+
+						<mat-cell
+							*matCellDef="let e"
+							[id]="column.columnName"
+						>
+							{{ e[column.propertyName] }}
+						</mat-cell>
+					</ng-container>
+				}s
+				<mat-header-row
+					class="header hidden-headers"
+					*matHeaderRowDef="adjustedDisplayedColumns()"
+				>
+				</mat-header-row>
+				<mat-row *matRowDef="let row; columns: adjustedDisplayedColumns()">
+				</mat-row>
+				<tr class="mat-row" *matNoDataRow>
+					<td class="mat-cell" colspan="4">
+						No data matching the filter`
+					</td>
+				</tr>
+			</table>
+		</div>
+</div>
