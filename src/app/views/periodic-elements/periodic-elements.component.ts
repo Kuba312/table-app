@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-periodic-elements',
   standalone: true,
-  imports: [RouterModule],
+  imports: [],
   templateUrl: './periodic-elements.component.html',
   styleUrl: './periodic-elements.component.scss',
 })
