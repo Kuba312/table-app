@@ -10,12 +10,12 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { routes } from './app.routes';
+import routes from './app.routes';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
-		provideExperimentalZonelessChangeDetection(),
 		provideRouter(routes, withViewTransitions()),
+		provideExperimentalZonelessChangeDetection(),
 		provideHttpClient(withFetch()),
 		provideClientHydration(),
 		provideAnimationsAsync(),
