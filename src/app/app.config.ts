@@ -8,9 +8,15 @@ import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideStore } from '@ngrx/store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import routes from './app.routes';
+import {
+	periodicElementsFeatureKey,
+	periodicElementsReducer,
+} from './views/periodic-elements/store/reducers';
+import * as periodicElementsEffects from './views/periodic-elements/store/effects';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -20,6 +26,8 @@ export const appConfig: ApplicationConfig = {
 		provideClientHydration(),
 		provideAnimationsAsync(),
 		provideStore(),
+		provideState(periodicElementsFeatureKey, periodicElementsReducer),
+		provideEffects(periodicElementsEffects),
 		provideStoreDevtools({
 			maxAge: 25,
 			logOnly: !isDevMode(),
