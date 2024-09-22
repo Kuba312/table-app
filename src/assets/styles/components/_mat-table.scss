@@ -15,16 +15,15 @@
 		background-color: $background-primary-dark-color !important;
 	}
 
-	&__row:hover {
-		background-color: $hover-light-color !important;
-		cursor: pointer;
-		transition: all 0.3s ease;
+	&__row:nth-child(even) {
+		background-color: $background-primary-darker-color !important;
 	}
+
 
 	&__header-cell,
 	&__cell {
 		padding: 0.8rem !important;
-		font-size: 1.4rem !important;
+		font-size: $smaller-font-size !important;
 		text-align: left !important;
 	}
 }
@@ -75,7 +74,7 @@
 				float: left;
 				font-weight: bold;
 
-				font-size: 1.6rem;
+				font-size: $default-font-size;
 			}
 
 			&:first-child {

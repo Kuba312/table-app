@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Edit row value</h1>
+<mat-dialog-content>
+	<mat-form-field>
+		<input matInput [(ngModel)]="rowValue" />
+	</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+	<button mat-button (click)="onNoClick()">No Thanks</button>
+	<button mat-button [mat-dialog-close]="rowValue()" cdkFocusInitial>
+		Ok
+	</button>
+</mat-dialog-actions>
