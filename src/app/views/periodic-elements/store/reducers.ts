@@ -1,11 +1,14 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { PeriodicElementsState } from './periodic-elements-state';
 import { periodicElementsActions } from './actions';
+import { PeriodicElementDto } from '@models/periodic-element-dto';
+import { EditedTableValueToSend } from '@shared/models/edited-table-value';
 
 const initialState: PeriodicElementsState = {
 	isLoading: false,
 	error: null,
 	data: null,
+	originalData: null,
 };
 
 const periodicElementsFeature = createFeature({
@@ -22,6 +25,7 @@ const periodicElementsFeature = createFeature({
 				...state,
 				isLoading: false,
 				data: periodicElements,
+				originalData: periodicElements,
 			}),
 		),
 		on(
@@ -36,19 +40,35 @@ const periodicElementsFeature = createFeature({
 			periodicElementsActions.editPeriodicElement,
 			(state, { editedPeriodicElement }) => ({
 				...state,
-				data: state?.data
-					? state.data.map((periodicElement) =>
-							periodicElement.id === editedPeriodicElement.id
-								? {
-										...periodicElement,
-										[editedPeriodicElement.propertyName]:
-											editedPeriodicElement.value,
-								  }
-								: periodicElement,
+				data: state.data
+					? updateElementInList(state.data, editedPeriodicElement)
+					: state.data,
+				originalData: state.originalData
+					? updateElementInList(
+							state.originalData,
+							editedPeriodicElement,
 					  )
-					: state?.data,
+					: state.originalData,
 			}),
 		),
+		on(
+			periodicElementsActions.filterPeriodicElements,
+			(state, { value }) => ({
+			  ...state,
+			  data: value
+				? state.originalData?.filter((periodicElement) => {
+					const { position, name, weight, symbol } = periodicElement;
+		  
+					return (
+					  String(position).includes(value) ||
+					  name.includes(value) ||
+					  String(weight).includes(value) ||
+					  symbol.includes(value)
+					);
+				  })
+				: state.originalData,
+			}),
+		  ),
 	),
 });
 
@@ -59,3 +79,17 @@ export const {
 	selectIsLoading,
 	selectError,
 } = periodicElementsFeature;
+
+function updateElementInList(
+	list: PeriodicElementDto[],
+	editedElement: EditedTableValueToSend,
+): PeriodicElementDto[] {
+	return list.map((element) =>
+		element.id === editedElement.id
+			? {
+					...element,
+					[editedElement.propertyName]: editedElement.value,
+			  }
+			: element,
+	);
+}

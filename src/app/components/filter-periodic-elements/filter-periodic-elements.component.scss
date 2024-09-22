@@ -1,0 +1,12 @@
+:host {
+	display: block;
+}
+
+.filter-periodic-elements {
+  margin: 1rem 1rem;
+	$self: &;
+
+	#{$self}__form-field {
+		width: 100%;
+	}
+}
