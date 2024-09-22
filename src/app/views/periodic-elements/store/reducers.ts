@@ -24,10 +24,31 @@ const periodicElementsFeature = createFeature({
 				data: periodicElements,
 			}),
 		),
-		on(periodicElementsActions.getPeriodicElementsFailure, (state) => ({
-			...state,
-			isLoading: false,
-		})),
+		on(
+			periodicElementsActions.getPeriodicElementsFailure,
+			(state, { errorMessage }) => ({
+				...state,
+				isLoading: false,
+				error: errorMessage,
+			}),
+		),
+		on(
+			periodicElementsActions.editPeriodicElement,
+			(state, { editedPeriodicElement }) => ({
+				...state,
+				data: state?.data
+					? state.data.map((periodicElement) =>
+							periodicElement.id === editedPeriodicElement.id
+								? {
+										...periodicElement,
+										[editedPeriodicElement.propertyName]:
+											editedPeriodicElement.value,
+								  }
+								: periodicElement,
+					  )
+					: state?.data,
+			}),
+		),
 	),
 });
 

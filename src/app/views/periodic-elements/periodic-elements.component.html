@@ -4,7 +4,9 @@
 	@if(periodicElementsValues) {
 		<app-mat-table
 			[displayedColumns]="COLUMNS"
+			[uniqueRowIdentifier]="ID"
 			[dataSource]="periodicElementsValues"
+			(editedInputValue)="onInputTableValueEdited($event)"
 		/>
 	}
 </section>

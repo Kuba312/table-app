@@ -1,10 +1,12 @@
+import { EditedTableValueToSend } from '@shared/models/edited-table-value';
 import { PeriodicElementDto } from '@models/periodic-element-dto';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const enum PeriodicElementsActions {
 	GetPeriodicElements = 'Get periodic elements',
 	GetPeriodicElementsSuccess = 'Get periodic elements success',
-	GetPeriodicElementsFailure = 'Get periodic elements failure'
+	GetPeriodicElementsFailure = 'Get periodic elements failure',
+	EditPeriodicElement = 'Edit periodic element'
 }
 
 export const periodicElementsActions = createActionGroup({
@@ -14,6 +16,11 @@ export const periodicElementsActions = createActionGroup({
 		[PeriodicElementsActions.GetPeriodicElementsSuccess]: props<{
 			periodicElements: PeriodicElementDto[];
 		}>(),
-		[PeriodicElementsActions.GetPeriodicElementsFailure]: emptyProps(),
+		[PeriodicElementsActions.GetPeriodicElementsFailure]: props<{
+			errorMessage: string;
+		}>(),
+		[PeriodicElementsActions.EditPeriodicElement]: props<{
+			editedPeriodicElement: EditedTableValueToSend;
+		}>(),
 	},
 });

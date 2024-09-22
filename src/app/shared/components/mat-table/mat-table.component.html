@@ -17,10 +17,15 @@
 							*matCellDef="let e"
 							[id]="column.columnName"
 						>
-							{{ e[column.propertyName] }}
+							<app-table-input
+								[propertyName]="column.propertyName"
+								[tableValue]="e[column.propertyName]"
+								[elementId]="e[uniqueRowIdentifier()]"
+								(editedValue)="editedInputValue.emit($event)"
+							/>
 						</mat-cell>
 					</ng-container>
-				}s
+				}
 				<mat-header-row
 					class="header hidden-headers"
 					*matHeaderRowDef="adjustedDisplayedColumns()"
