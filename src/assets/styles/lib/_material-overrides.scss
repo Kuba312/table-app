@@ -1,0 +1,13 @@
+@use '../abstracts' as *;
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+	background-color: transparent !important;
+}
+
+.mat-mdc-button:not(:disabled) {
+	font-size: $default-font-size !important;
+}
+
+mat-icon {
+	cursor: pointer;
+}

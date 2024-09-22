@@ -1,5 +1,7 @@
 import {
 	Component,
+	DestroyRef,
+	inject,
 	input,
 	InputSignal,
 	OnInit,
@@ -8,12 +10,15 @@ import {
 	signal,
 	WritableSignal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { EditedTableValue } from '@shared/models/edited-table-value';
 import { TableInputState } from '@shared/shared.types';
+import TableEditDialogComponent from '../table-edit-dialog/table-edit-dialog.component';
 
 @Component({
 	selector: 'app-table-input',
@@ -22,6 +27,9 @@ import { TableInputState } from '@shared/shared.types';
 	templateUrl: './table-input.component.html',
 })
 export default class TableInputComponent<T extends string> implements OnInit {
+	private readonly dialog: MatDialog = inject(MatDialog);
+	private readonly dRef: DestroyRef = inject(DestroyRef);
+
 	tableValue: InputSignal<T> = input.required<T>();
 	elementId: InputSignal<string> = input.required<string>();
 	propertyName: InputSignal<string> = input.required<string>();
@@ -42,6 +50,30 @@ export default class TableInputComponent<T extends string> implements OnInit {
 		this.tableValueEditVal.set(this.tableValue());
 	}
 
+	editInDialog(): void {
+		this._changeInputIcon();
+
+		const dialogRef = this.dialog.open(TableEditDialogComponent, {
+			data: this.tableValueEditVal(),
+		});
+
+		dialogRef
+			.afterClosed()
+			.pipe(
+				takeUntilDestroyed(this.dRef),
+			)
+			.subscribe((result) => {
+				if(!result) {
+					this._changeInputIcon();
+					
+					return;
+				}
+
+				this.tableValueEditVal.set(result);
+				this.editValue();
+			});
+	}
+
 	editValue(): void {
 		this._changeInputIcon();
 
@@ -50,6 +82,7 @@ export default class TableInputComponent<T extends string> implements OnInit {
 		}
 
 		this._restoreValueWhenInputEmpty();
+
 		this.editedValue.emit({
 			id: this.elementId(),
 			value: this.tableValueEditVal(),

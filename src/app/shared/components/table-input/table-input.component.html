@@ -2,6 +2,9 @@
 	<mat-icon matSuffix (click)="editValue()">
 		{{ editInputState() }}
 	</mat-icon>
+	<mat-icon matSuffix (click)="editInDialog()">
+		open_in_new
+	</mat-icon>
 	<input 
 		[readonly]="isEditState"
 		type="text"
