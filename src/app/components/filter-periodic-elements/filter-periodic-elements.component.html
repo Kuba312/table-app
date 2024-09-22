@@ -1,0 +1,20 @@
+@let formGroup = formModel.formGroup();
+
+@if (formModel && formGroup) {
+	<form 
+		[formGroup]="formGroup" 
+		class="filter-periodic-elements"
+	>
+		<mat-form-field
+			appearance="outline"
+			class="filter-periodic-elements__form-field"
+		>
+			<mat-label>Search</mat-label>
+			<input
+				type="text"
+				[formControlName]="formModel.SEARCH_VALUE"
+				matInput
+			/>
+		</mat-form-field>
+	</form>
+}

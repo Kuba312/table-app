@@ -6,7 +6,8 @@ export const enum PeriodicElementsActions {
 	GetPeriodicElements = 'Get periodic elements',
 	GetPeriodicElementsSuccess = 'Get periodic elements success',
 	GetPeriodicElementsFailure = 'Get periodic elements failure',
-	EditPeriodicElement = 'Edit periodic element'
+	EditPeriodicElement = 'Edit periodic element',
+	FilterPeriodicElements = 'Filter periodic elements'
 }
 
 export const periodicElementsActions = createActionGroup({
@@ -21,6 +22,9 @@ export const periodicElementsActions = createActionGroup({
 		}>(),
 		[PeriodicElementsActions.EditPeriodicElement]: props<{
 			editedPeriodicElement: EditedTableValueToSend;
+		}>(),
+		[PeriodicElementsActions.FilterPeriodicElements]: props<{
+			value: string;
 		}>(),
 	},
 });

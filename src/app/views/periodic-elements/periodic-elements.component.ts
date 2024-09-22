@@ -1,6 +1,6 @@
 import { Component, inject, Signal } from '@angular/core';
 import { Option } from '@app/app.types';
-import { PeriodicElementDto } from '@app/models/periodic-element-dto';
+import { PeriodicElementDto } from '@models/periodic-element-dto';
 import { Store } from '@ngrx/store';
 import MatTableComponent from '@shared/components/mat-table/mat-table.component';
 import { ColumnMapper } from '@shared/models/column-mapper';
@@ -8,14 +8,15 @@ import { selectData } from './store/reducers';
 import {
 	EditedTableValue,
 	EditedTableValueToSend,
-} from '@app/shared/models/edited-table-value';
-import { NumOrString } from '@app/shared/shared.types';
+} from '@shared/models/edited-table-value';
+import { NumOrString } from '@shared/shared.types';
 import { periodicElementsActions } from './store/actions';
+import FilterPeriodicElementsComponent from '@components/filter-periodic-elements/filter-periodic-elements.component';
 
 @Component({
 	selector: 'app-periodic-elements',
 	standalone: true,
-	imports: [MatTableComponent],
+	imports: [MatTableComponent, FilterPeriodicElementsComponent],
 	templateUrl: './periodic-elements.component.html',
 	styleUrl: './periodic-elements.component.scss',
 })

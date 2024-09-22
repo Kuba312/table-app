@@ -5,4 +5,5 @@ export interface PeriodicElementsState {
 	isLoading: boolean;
 	error: Option<string>;
 	data: Option<PeriodicElementDto[]>
+	originalData: Option<PeriodicElementDto[]>;
 }
