@@ -24,9 +24,3 @@
 		}
 	}
 }
-
-@mixin responsive-daily-board-grid($width, $minWidth) {
-	@media (width <= $width) {
-		grid-template-columns: repeat(7, minmax($minWidth, 1fr));
-	}
-}
