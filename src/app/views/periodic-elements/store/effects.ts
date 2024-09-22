@@ -4,6 +4,7 @@ import { PeriodicElementsService } from '@services/periodic-elements.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { periodicElementsActions } from './actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const getPeriodicElementsEffect = createEffect(
 	(
@@ -19,8 +20,12 @@ export const getPeriodicElementsEffect = createEffect(
 							periodicElements,
 						}),
 					),
-					catchError(() =>
-						of(periodicElementsActions.getPeriodicElementsFailure()),
+					catchError((err: HttpErrorResponse) =>
+						of(
+							periodicElementsActions.getPeriodicElementsFailure({
+								errorMessage: err?.message ?? '',
+							}),
+						),
 					),
 				),
 			),
